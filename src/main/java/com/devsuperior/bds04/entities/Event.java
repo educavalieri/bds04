@@ -1,6 +1,7 @@
 package com.devsuperior.bds04.entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -74,5 +75,29 @@ public class Event {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Event event = (Event) o;
+		return Objects.equals(id, event.id) && Objects.equals(name, event.name) && Objects.equals(date, event.date) && Objects.equals(url, event.url) && Objects.equals(city, event.city);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, date, url, city);
+	}
+
+	@Override
+	public String toString() {
+		return "Event{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", date=" + date +
+				", url='" + url + '\'' +
+				", city=" + city +
+				'}';
 	}
 }
