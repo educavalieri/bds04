@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cities")
@@ -22,9 +23,8 @@ public class CityResource {
     private CityService cityService;
 
     @GetMapping
-    public ResponseEntity<Page<CityDTO>> findAll(Pageable pageable){
-        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name"));
-        Page<CityDTO> dto = cityService.findAll(pageRequest);
+    public ResponseEntity<List<CityDTO>> findAll(){
+        List<CityDTO> dto = cityService.findAll();
         return ResponseEntity.ok().body(dto);
     }
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.Access;
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -30,7 +31,7 @@ public class EventResource {
     }
 
     @PostMapping
-    public ResponseEntity<EventDTO> insert(@RequestBody EventDTO dto){
+    public ResponseEntity<EventDTO> insert(@Valid @RequestBody EventDTO dto){
         EventDTO newDto = eventService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();

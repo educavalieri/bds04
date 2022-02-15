@@ -6,8 +6,12 @@ import com.devsuperior.bds04.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CityService {
@@ -16,9 +20,9 @@ public class CityService {
     private CityRepository cityRepository;
 
     @Transactional(readOnly = true)
-    public Page<CityDTO> findAll(Pageable pageable){
-        Page<City> entity = cityRepository.findAll(pageable);
-        return entity.map(x -> new CityDTO(x));
+    public List<CityDTO> findAll(){
+        List<City> entity = cityRepository.findAll(Sort.by("name"));
+        return entity.stream().map(x -> new CityDTO(x)).collect(Collectors.toList());
     }
 
     @Transactional
